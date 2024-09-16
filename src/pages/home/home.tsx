@@ -5,6 +5,8 @@ import card3 from "./../../images/card-3.png"
 import card4 from "./../../images/card-4.png"
 
 import whoAreWe from './../../images/who are we@1.25x.png'
+import whoAreWe2 from './../../images/who are we@1.25x2.png'
+import whoAreWe3 from './../../images/who are we@1.25x 3.png'
 import shape from './../../images/whoAreWeShpaeText@1.25x.png'
 
 import partenersBg from './../../images/our-parteners.png'
@@ -121,10 +123,91 @@ const Home = () => {
   };
   const partnersRef = useRef(null);
   const isPartnersVisible = useIntersection(partnersRef); // Check if the section is in view
-  
+
+  const heroRef = useRef(null); // Reference to "hero" section
+
+  const [isWhoAreWeVisible, setIsWhoAreWeVisible] = useState(false);
+  const [flipCount, setFlipCount] = useState(0); // To track the flip changes
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // If "hero" section is in view, hide "who-are-we" section
+          setIsWhoAreWeVisible(false);
+        } else {
+          // If "hero" section is out of view, show "who-are-we" section
+          setIsWhoAreWeVisible(true);
+        }
+      },
+      {
+        root: null, // Use the viewport
+        threshold: 0, // Trigger when the "hero" section is in/out of view
+      }
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current); // Observe the "hero" section
+    }
+
+    return () => {
+      if (heroRef.current) {
+        observer.unobserve(heroRef.current); // Clean up observer
+      }
+    };
+  }, []);  
+  useEffect(() => {
+    const handleScroll = () => {
+      const whoAreWeSection = sectionRef.current;
+      const heroSection = heroRef.current;
+
+      if (!whoAreWeSection || !heroSection) return;
+
+      // Calculate hero and "who-are-we" section boundaries
+      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+      const scrollPosition = window.scrollY;
+      const sectionHeight = whoAreWeSection.offsetHeight;
+
+      const distanceScrolled = scrollPosition - heroBottom;
+      console.log(distanceScrolled);
+      // Flip images at different distances (25%, 50%, 75% of "who-are-we" section)
+      if (distanceScrolled < 400) {
+        setFlipCount(0);
+      }
+      else if (distanceScrolled > (window.innerHeight * 2) && distanceScrolled < (window.innerHeight * 3)) {
+        setFlipCount(1); // First flip at 33%
+      } else if (distanceScrolled > (window.innerHeight * 3) ) {
+        setFlipCount(2); // Second flip at 66%
+      }
+    };
+
+    // Attach scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const images = [
+    whoAreWe, // Initial image
+    whoAreWe2, // First flipped image
+    whoAreWe3 // Second flipped image
+  ];
+
+  const flipVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8, // Control the flip speed
+        ease: "easeInOut",
+      },
+    },
+    exit: { opacity: 0, y: -200, transition: { duration: 0.8 } },
+  };
   return (
     <DefaultLayout>
-      <section className="hero">
+      <section className="hero" ref={heroRef}>
         <div className="container">
           <div className="content-fluid">
             <motion.h1
@@ -207,19 +290,20 @@ const Home = () => {
         <div className="container">
           <div className="content-fluid">
             {/* Animated Image */}
-            <motion.img
-              src={whoAreWe}
-              alt="Who Are We"
-              initial="hidden"
-              animate={isVisible ? "visible" : "hidden"} // Animation triggered by visibility
-              variants={imageVariant}
-            />
-
-            {/* Animated Text */}
+          <motion.img
+          key={flipCount} // Use key to force re-render and trigger the animation
+          src={images[flipCount]} // Change the image based on flip count
+          alt="Who Are We"
+          initial="hidden"
+          animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation triggered by visibility
+          exit="exit" // Exiting animation
+          variants={flipVariants}
+        />
+              {/* Animated Text */}
             <motion.div
               className="text"
               initial="hidden"
-              animate={isVisible ? "visible" : "hidden"} // Animation triggered by visibility
+              animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation triggered by visibility
               variants={textVariant}
             >
               {/* Heading 1 */}
@@ -313,6 +397,7 @@ const Home = () => {
         </div>
       </div>
     </section>
+    <section style={{height: '100vh', background: "#1a2322", position: 'relative', zIndex: 10}}></section>
     </DefaultLayout>
   );
 };

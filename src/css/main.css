@@ -715,6 +715,8 @@ header a.active {
     .who-are-we .container .content-fluid > img {
         width: 90%;
         margin: auto;
+        height: 320px;
+        object-fit: contain;
     }
     .who-are-we .container .content-fluid h1 {
         font-size: 15px;
@@ -817,3 +819,33 @@ header a.active {
     }    
 }
 
+.who-are-we {
+    background-color: var(--main-color);
+    z-index: 9;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 16px 0;
+}
+
+.hero {
+    z-index: 10;
+    position: relative;
+    margin-bottom: 500vh;
+}
+
+header {
+    position: relative;
+    z-index: 11;
+}
+
+.our-parteners {
+    position: relative;
+    z-index: 10;
+    background-color: var(--main-color);
+}
