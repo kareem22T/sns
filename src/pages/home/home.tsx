@@ -163,9 +163,9 @@ const Home = () => {
       if (!whoAreWeSection || !heroSection) return;
 
       // Calculate hero and "who-are-we" section boundaries
-      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+      const heroBottom = (heroSection as HTMLElement).offsetTop + (heroSection as HTMLElement).offsetHeight;
       const scrollPosition = window.scrollY;
-      const sectionHeight = whoAreWeSection.offsetHeight;
+      const sectionHeight = (whoAreWeSection as HTMLElement).offsetHeight;
 
       const distanceScrolled = scrollPosition - heroBottom;
       console.log(distanceScrolled);
