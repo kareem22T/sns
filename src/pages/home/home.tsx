@@ -10,6 +10,7 @@ import whoAreWe3 from './../../images/who are we@1.25x 3.png'
 import shape from './../../images/whoAreWeShpaeText@1.25x.png'
 
 import partenersBg from './../../images/our-parteners.png'
+import team from './../../images/our-team.png'
 import parteners from './../../images/parteners@1.25x.png'
 import video from './../../images/video.png'
 import { delay, motion, useAnimation } from "framer-motion";
@@ -90,6 +91,21 @@ const Home = () => {
 
   const Refcard4 = useRef(null);
   const isCard4Visible = useIntersection(Refcard4);
+  
+  const texxt = useRef(null);
+  const isTextss = useIntersection(texxt);
+
+  const Teamcard1 = useRef(null);
+  const isTeamCard1Visible = useIntersection(Teamcard1);
+
+  const Teamcard2 = useRef(null);
+  const isTeamCard2Visible = useIntersection(Teamcard2);
+
+  const Teamcard3 = useRef(null);
+  const isTeamCard3Visible = useIntersection(Teamcard3);
+
+  const Teamcard4 = useRef(null);
+  const isTeamCard4Visible = useIntersection(Teamcard4);
 
 
   // Define motion variants for the image and text animations
@@ -128,6 +144,11 @@ const Home = () => {
 
   const [isWhoAreWeVisible, setIsWhoAreWeVisible] = useState(false);
   const [flipCount, setFlipCount] = useState(0); // To track the flip changes
+
+  const [isQuestion1, setIsQuestion1] = useState(true)
+  const [isQuestion2, setIsQuestion2] = useState(false)
+  const [isQuestion3, setIsQuestion3] = useState(false)
+  const [isQuestion4, setIsQuestion4] = useState(false)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -205,6 +226,20 @@ const Home = () => {
     },
     exit: { opacity: 0, y: -200, transition: { duration: 0.8 } },
   };
+  const  faqRef = useRef(null);
+  const isFaqVisible = useIntersection(faqRef); // Check if the section is in view
+
+    // Animation variants
+    const fadeInFAQ = {
+      hidden: { opacity: 0, y: 50 },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    };
+  
+    const fadeInQuestions = {
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
+    };
+  
   return (
     <DefaultLayout>
       <section className="hero" ref={heroRef}>
@@ -397,7 +432,138 @@ const Home = () => {
         </div>
       </div>
     </section>
-    <section style={{height: '100vh', background: "#1a2322", position: 'relative', zIndex: 10}}></section>
+    <section className="faq" ref={faqRef}>
+      <div className="container">
+        <div className="content-fluid">
+          <motion.div
+            className="text"
+            initial="hidden"
+            animate={isFaqVisible ? "visible" : "hidden"}
+            variants={fadeInFAQ}
+          >
+            <h2>
+              <img src={shape} alt="" />
+              Why SNS?
+            </h2>
+            <h1>
+              Frequently
+              <br />
+              Asked Questions
+            </h1>
+            <p>
+              Sustainability Network Solutions! If you are here
+              you've decided to be part of the change and contribute to
+              our planet's future. Together, we can create a better life
+              for ourselves, our children, and all living species. We are
+              experts in driving sustainable innovation and positively impacting
+              the world.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="questions_wrapper"
+            initial="hidden"
+            animate={isFaqVisible ? "visible" : "hidden"}
+            variants={fadeInFAQ}
+          >
+            {[1, 2, 3, 4].map((num) => (
+              <motion.div
+                key={num}
+                className={"question" + (eval(`isQuestion${num}`) ? " open" : "")}
+                onClick={() => eval(`setIsQuestion${num}`)(!eval(`isQuestion${num}`))}
+                initial="hidden"
+                animate={isFaqVisible ? "visible" : "hidden"}
+                variants={fadeInQuestions}
+              >
+                <h3>
+                  {num}. Cost Savings and Efficiency Improvements
+                  <i className={"fa-solid" + (eval(`isQuestion${num}`) ? " fa-chevron-up" : " fa-chevron-down")}></i>
+                </h3>
+                <p className="answer">
+                  Resource Efficiency: We identify ways to reduce energy and water
+                  usage, minimize waste, and optimize processes, leading 
+                  to significant cost savings.
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+    <section className="our-team">
+      <div className="container">
+        <div className="content-fluid">
+            <motion.h2
+              ref={texxt}
+              initial="hidden"
+              animate={isTextss ? "visible" : "hidden"}
+              variants={textVariantx}                                        
+            >
+              <img src={shape} alt="" />
+              Our Team
+            </motion.h2>
+            <div className="team_wrapper">
+              <motion.div
+                ref={Teamcard1}
+                initial="hidden"
+                animate={isTeamCard1Visible ? "visible" : "hidden"}
+                variants={fadeInCards}              
+               className="team-card">
+                <img src={team} alt="" />
+                <h3>
+                  Mohamed Adel <br />
+                  <span>
+                    CEO, TEST
+                  </span>
+                </h3>
+              </motion.div>
+              <motion.div
+                ref={Teamcard2}
+                initial="hidden"
+                animate={isTeamCard2Visible ? "visible" : "hidden"}
+                variants={fadeInCards1}                            
+               className="team-card">
+                <img src={team} alt="" />
+                <h3>
+                  Mohamed Adel <br />
+                  <span>
+                    CEO, TEST
+                  </span>
+                </h3>
+              </motion.div>
+              <motion.div
+                ref={Teamcard3}
+                initial="hidden"
+                animate={isTeamCard3Visible ? "visible" : "hidden"}
+                variants={fadeInCards2}                            
+              
+               className="team-card">
+                <img src={team} alt="" />
+                <h3>
+                  Mohamed Adel <br />
+                  <span>
+                    CEO, TEST
+                  </span>
+                </h3>
+              </motion.div>
+              <motion.div
+                ref={Teamcard4}
+                initial="hidden"
+                animate={isTeamCard4Visible ? "visible" : "hidden"}
+                variants={fadeInCards3}                                          
+               className="team-card">
+                <img src={team} alt="" />
+                <h3>
+                  Mohamed Adel <br />
+                  <span>
+                    CEO, TEST
+                  </span>
+                </h3>
+              </motion.div>
+            </div>
+        </div>
+      </div>
+    </section>
     </DefaultLayout>
   );
 };
