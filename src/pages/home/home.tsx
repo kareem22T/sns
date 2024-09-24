@@ -4,9 +4,9 @@ import card2 from "./../../images/card-2.png"
 import card3 from "./../../images/card-3.png"
 import card4 from "./../../images/card-4.png"
 
-import whoAreWe from './../../images/who are we@1.25x.png'
-import whoAreWe2 from './../../images/who are we@1.25x2.png'
-import whoAreWe3 from './../../images/who are we@1.25x 3.png'
+import whoAreWe from './../../images/slide-1.jpg'
+import whoAreWe2 from './../../images/slide-2.jpg'
+import whoAreWe3 from './../../images/slide-3.jpg'
 import shape from './../../images/whoAreWeShpaeText@1.25x.png'
 
 import partenersBg from './../../images/our-parteners.png'
@@ -15,6 +15,7 @@ import parteners from './../../images/parteners@1.25x.png'
 import video from './../../images/video.png'
 import { delay, motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import Slider from "./slider";
 
 const Home = () => {
   const controls = useAnimation();
@@ -566,6 +567,24 @@ const Home = () => {
             </div>
         </div>
       </div>
+    </section>
+    <section className="our-team">
+      <div className="container">
+        <div className="content-fluid">
+
+            <motion.h2
+              ref={texxt}
+              initial="hidden"
+              animate={isTextss ? "visible" : "hidden"}
+              variants={textVariantx}                                        
+            >
+              <img src={shape} alt="" />
+              Trusted By
+            </motion.h2>
+        </div>
+    <Slider />
+      </div>
+
     </section>
     </DefaultLayout>
   );

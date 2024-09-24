@@ -57,12 +57,9 @@ const Header = () => {
                     </div>
                     <div className="links">                    
                         <a href="#home" className='active'>Home</a>
-                        <a href="#about">About</a>
                         <a href="#services">Services</a>
-                        <a href="#team">Our Team</a>
-                        <a href="#clients">Clients</a>
                         <a href="#projects">Projects</a>
-                        <a href="#resources">Resources</a>
+                        <a href="#insights">Insights</a>
                         <a href="#contact">Contact Us</a>
                     </div>
                     <div className="social">
