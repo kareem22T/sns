@@ -610,9 +610,6 @@ header a.active {
         gap: 64px;
         align-items: center;
     }
-    .who-are-we .container .content-fluid > img {
-        width: 410px;
-    }
     .who-are-we .container .content-fluid h2 {
         font-size: 15px;
     }
@@ -651,9 +648,6 @@ header a.active {
         justify-content: space-between;
         gap: 40px;
         align-items: center;
-    }
-    .who-are-we .container .content-fluid > img {
-        width: 300px;
     }
     .who-are-we .container .content-fluid h2 {
         font-size: 14px;
@@ -715,9 +709,6 @@ header a.active {
         gap: 32px;
         align-items: start;
     }
-    .who-are-we .container .content-fluid > img {
-        width: 160px;
-    }
 }
 
 @media (max-width: 575.98px) {
@@ -726,12 +717,6 @@ header a.active {
     }
     .who-are-we .container .content-fluid {
         flex-direction: column;
-    }
-    .who-are-we .container .content-fluid > img {
-        width: 90%;
-        margin: auto;
-        height: 320px;
-        object-fit: contain;
     }
     .who-are-we .container .content-fluid h1 {
         font-size: 15px;
