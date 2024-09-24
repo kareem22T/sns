@@ -312,7 +312,7 @@ header a.active {
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     padding: 16px;
-    background-color: #fff;
+    background-color: #bb9143;
     border-radius: 26px;
     transform: translateY(50%);
 }

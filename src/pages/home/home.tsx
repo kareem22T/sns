@@ -62,21 +62,21 @@ const Home = () => {
 
 
   const fadeInCards = {
-    hidden: { opacity: 0, x: -100 },
+    hidden: { opacity: 0, x: 0 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: .4 } }
   };
 
   const fadeInCards1 = {
-    hidden: { opacity: 0, x: -100 },
+    hidden: { opacity: 0, x: 0 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: .6 } }
   };
   const fadeInCards2 = {
-    hidden: { opacity: 0, x: -100 },
+    hidden: { opacity: 0, x: 0 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: .8 } }
   };
 
   const fadeInCards3 = {
-    hidden: { opacity: 0, x: -100 },
+    hidden: { opacity: 0, x: 0 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 1 } }
   };
 
@@ -213,7 +213,21 @@ const Home = () => {
     whoAreWe2, // First flipped image
     whoAreWe3 // Second flipped image
   ];
-
+  const content = [
+    {
+      title: "About Us",
+      description: "For centuries, humans lived in harmony with the natural world, guided by practices that prioritized balance and resilience. At SNS, we believe sustainability isn’t a trend—it’s a rediscovery of our roots. We are here to bridge the wisdom of the past with the innovation of today, offering solutions that empower businesses and communities to thrive sustainably. Let us help you create a future where these values are seamlessly integrated into every facet of life and business, ensuring growth, resilience, and a lasting impact on the world around us."
+    },
+    {
+      title: "Our Mission",
+      description: "To reignite sustainable thinking and empower businesses to embed sustainability at their core. Through innovative consulting, deep collaboration, and strategic partnerships, we guide organizations in turning sustainability challenges into opportunities for growth and positive impact."
+    },
+    {
+      title: "Our Vision",
+      description: "To shape a future where sustainable practices are second nature—woven into every decision, every strategy, and every community. We envision a world where businesses and people co-create solutions that restore balance and create lasting value for generations to come."
+    }
+  ];
+  
   const flipVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -322,27 +336,28 @@ const Home = () => {
         </div>
       </section>
       <section className="who-are-we" ref={sectionRef}>
-        <div className="container">
-          <div className="content-fluid">
-            {/* Animated Image */}
-          <motion.img
-          key={flipCount} // Use key to force re-render and trigger the animation
-          src={images[flipCount]} // Change the image based on flip count
-          alt="Who Are We"
-          initial="hidden"
-          animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation triggered by visibility
-          exit="exit" // Exiting animation
-          variants={flipVariants}
-        />
-              {/* Animated Text */}
-            <motion.div
-              className="text"
-              initial="hidden"
-              animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation triggered by visibility
-              variants={textVariant}
-            >
-              {/* Heading 1 */}
-              <motion.h2 variants={textVariant}>
+      <div className="container">
+  <div className="content-fluid">
+    {/* Animated Image */}
+    <motion.img
+      key={flipCount} // Trigger re-render on image change
+      src={images[flipCount]} // Image changes with flipCount
+      alt={content[flipCount].title} // Alt text based on current content
+      initial="hidden"
+      animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation
+      exit="exit"
+      variants={flipVariants}
+    />
+
+    {/* Animated Text */}
+    <motion.div
+      className="text"
+      initial="hidden"
+      animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation triggered by visibility
+      variants={textVariant}
+    >
+                    {/* Heading 1 */}
+                    <motion.h2 variants={textVariant}>
                 <img src={shape} alt="Shape" />
                 Who We Are
               </motion.h2>
@@ -356,34 +371,22 @@ const Home = () => {
                 From the wisdom of our ancestors, reminding us that sustainability is not a new concept, but a forgotten part of our identity as humans. SNS is the pathway that connects our sustainable past knowledge to a future where some of these practices are once again a part of our daily lives. We are dedicated to reigniting the sustainable mindset and providing a broad array of services to research and actualize sustainability in business and everyday life.
               </motion.p>
 
-              {/* Mission Section */}
-              <motion.h2 variants={textVariant}>
-                <img src={shape} alt="Shape" />
-                Our Mission
-              </motion.h2>
+      <motion.h2 variants={textVariant}>
+        <img src={shape} alt="Shape" />
+        {content[flipCount].title} {/* Dynamically change title */}
+      </motion.h2>
 
-              <motion.p variants={textVariant}>
-                To drive global sustainability through innovative consulting strategic partnerships.
-              </motion.p>
+      <motion.p key={flipCount} variants={textVariant}>
+        {content[flipCount].description} {/* Dynamically change description */}
+      </motion.p>
 
-              {/* Vision Section */}
-              <motion.h2 variants={textVariant}>
-                <img src={shape} alt="Shape" />
-                Our Vision
-              </motion.h2>
-
-              <motion.p variants={textVariant}>
-                Creating a greener future through co-creation and sustainable business practices.
-              </motion.p>
-
-              {/* Contact Us Button */}
-              <motion.button variants={textVariant}>
-                Contact Us
-                <i className="fa-solid fa-chevron-right"></i>
-              </motion.button>
-            </motion.div>
-          </div>
-        </div>
+      <motion.button variants={textVariant}>
+        Contact Us
+        <i className="fa-solid fa-chevron-right"></i>
+      </motion.button>
+    </motion.div>
+  </div>
+</div>
       </section>
       <section className="our-parteners" ref={partnersRef}>
       {/* Animated background image */}
