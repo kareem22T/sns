@@ -178,7 +178,7 @@ header .logo {
 }
 
 header .social a {
-    color: white;
+    color: #f6ebd3;
 }
 
 header nav {
@@ -188,7 +188,7 @@ header nav {
 }
 
 header a {
-    color: #f7f7f7;
+    color: #f6ebd3;
     text-decoration: none;
     transition: all .3s ease-in;
 }
@@ -305,7 +305,7 @@ header a.active {
 
 .hero h2 {
     font-size: 28px;
-    color: #fff;
+    color: #f6ebd3;
     text-align: center;
     font-weight: 300;
     letter-spacing: 2px;
@@ -359,7 +359,7 @@ header a.active {
 .hero .cards-wrapper .card .text {
     position: relative;
     z-index: 3;
-    color: #fff;
+    color: #f6ebd3;
     font-size: 18px;
     font-weight: 400;
     display: flex;
@@ -370,7 +370,7 @@ header a.active {
 
 .hero .cards-wrapper .card .text i {
     padding: 8px;
-    border: 2px solid #fff;
+    border: 2px solid #f6ebd3;
     border-radius: 50%;
     font-size: 13px;
     width: 25px;
