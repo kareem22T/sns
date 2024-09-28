@@ -1168,3 +1168,9 @@ footer .container {
         border-right: none;
     }
 }
+
+@media (max-width: 767.98px) {
+    .hero .content-fluid {
+        height: 170px;
+    }
+}
