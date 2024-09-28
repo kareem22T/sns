@@ -816,7 +816,7 @@ header a.active {
     }
     .our-parteners >img {
         width: 100%;
-        height: 300px;
+        object-fit: contain;
     }    
 }
 
@@ -1145,4 +1145,26 @@ footer .container {
 
 .why-assist .why-card:not(:last-child) {
     border-right: 1px dashed #fff;
+}
+
+@media (max-width: 992.98px) {
+    .why-assist .why-assist-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 16px;
+    }
+    .why-assist .why-card {
+        padding: 0;
+    }
+    .why-assist .why-assist-cards .why-card h1 {
+        font-size: 17px !important;
+        color: #f6ebd3 !important;
+    }
+    .why-assist p {
+        font-size: 11px !important;
+        margin: 0 !important;
+    }
+    .why-assist .why-card:not(:last-child) {
+        border-right: none;
+    }
 }
