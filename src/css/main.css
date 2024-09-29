@@ -1097,7 +1097,7 @@ footer .container {
     height: 80px !important;
     background-color:#f6ebd3 ;
     width: 150px !important;
-    /* border-radius: 12px; */
+    border-radius: 12px;
     overflow: hidden;
 }
 
