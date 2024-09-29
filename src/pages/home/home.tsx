@@ -707,7 +707,7 @@ const Home = () => {
               variants={textVariantx}
             >
               <img src={shape} alt="" />
-              Trusted By
+              Sufu Ecosystem
             </motion.h2>
           </div>
           <Slider />
