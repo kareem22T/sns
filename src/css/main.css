@@ -834,7 +834,6 @@ header a.active {
 }
 
 .who-are-we {
-    background-color: var(--main-color);
     z-index: 9;
     width: 100vw;
     min-height: 100vh;
@@ -1088,7 +1087,6 @@ footer .container {
     z-index: 54;
     height: auto;
     margin-bottom: 32px;
-    background: #1a2322;
 }
 
 .trusted-by-slider img {
@@ -1099,6 +1097,8 @@ footer .container {
     height: 80px !important;
     background-color:#f6ebd3 ;
     width: 150px !important;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .trusted-by-slider .swiper-slide img {
