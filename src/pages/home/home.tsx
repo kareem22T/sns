@@ -192,15 +192,16 @@ const Home = () => {
       const distanceScrolled = scrollPosition - heroBottom;
       console.log(distanceScrolled);
       // Flip images at different distances (25%, 50%, 75% of "who-are-we" section)
-      if (distanceScrolled < 400) {
-        setFlipCount(0);
+      if (distanceScrolled < (window.innerHeight * 1)) {
+        setFlipCount(0); // Before 25%
+      } else if (distanceScrolled >= (window.innerHeight * 1) && distanceScrolled < (window.innerHeight * 2)) {
+        setFlipCount(1); // First flip at 25%
+      } else if (distanceScrolled >= (window.innerHeight * 2) && distanceScrolled < (window.innerHeight * 3)) {
+        setFlipCount(2); // Second flip at 50%
+      } else if (distanceScrolled >= (window.innerHeight * 3)) {
+        setFlipCount(3); // Third flip at 75%
       }
-      else if (distanceScrolled > (window.innerHeight * 2) && distanceScrolled < (window.innerHeight * 3)) {
-        setFlipCount(1); // First flip at 33%
-      } else if (distanceScrolled > (window.innerHeight * 3)) {
-        setFlipCount(2); // Second flip at 66%
-      }
-    };
+      };
 
     // Attach scroll event listener
     window.addEventListener("scroll", handleScroll);
@@ -212,7 +213,8 @@ const Home = () => {
   const images = [
     whoAreWe, // Initial image
     whoAreWe2, // First flipped image
-    whoAreWe3 // Second flipped image
+    whoAreWe3, // Second flipped image
+    whoAreWe
   ];
   const content = [
     {
@@ -293,7 +295,7 @@ const Home = () => {
             <motion.img
               key={flipCount} // Trigger re-render on image change
               src={images[flipCount]} // Image changes with flipCount
-              alt={content[flipCount].title} // Alt text based on current content
+              alt={content[flipCount]?.title} // Alt text based on current content
               initial="hidden"
               animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation
               exit="exit"
@@ -480,17 +482,34 @@ const Home = () => {
   variants={imageVariantx}
 />
 
-<div className="why-assist">
+<motion.img
+              src={video}
+              alt="Video"
+              initial="hidden"
+              className="video"
+              style={{maxWidth: 600,display: 'block', margin:'auto', marginBottom: 32}}
+              animate={(flipCount == 2) ? "visible" : "hidden"}
+              variants={videoVariant}
+            />
+
+  </section>
+
+              )
+                }
+
+                {
+                  (flipCount == 3) && (
+                    <div className="why-assist" style={{marginBottom: 40}}>
   <motion.h2
         initial="hidden"
-        animate={(flipCount == 2) ? "visible" : "hidden"}
+        animate={(flipCount == 3) ? "visible" : "hidden"}
         variants={textVariant}
   >We assist ourselves and the planet by</motion.h2>
   <div className="why-assist-cards">
     <motion.div
       className="why-card"
       initial="hidden"
-      animate={(flipCount == 2) ? "visible" : "hidden"}
+      animate={(flipCount == 3) ? "visible" : "hidden"}
       variants={fadeInCards}
     >
       <h1>1.	DISCOVER</h1>
@@ -501,7 +520,7 @@ const Home = () => {
     <motion.div
       className="why-card"
       initial="hidden"
-      animate={(flipCount == 2) ? "visible" : "hidden"}
+      animate={(flipCount == 3) ? "visible" : "hidden"}
       variants={fadeInCards}
     >
       <h1>2.	DEFINE</h1>
@@ -512,7 +531,7 @@ const Home = () => {
     <motion.div
       className="why-card"
       initial="hidden"
-      animate={(flipCount == 2) ? "visible" : "hidden"}
+      animate={(flipCount == 3) ? "visible" : "hidden"}
       variants={fadeInCards}
     >
       <h1>3.	DEVELOP</h1>
@@ -523,7 +542,7 @@ const Home = () => {
     <motion.div
       className="why-card"
       initial="hidden"
-      animate={(flipCount == 2) ? "visible" : "hidden"}
+      animate={(flipCount == 3) ? "visible" : "hidden"}
       variants={fadeInCards}
     >
       <h1>4.	 DELIVER</h1>
@@ -534,8 +553,7 @@ const Home = () => {
   </div>
 </div>
 
-  </section>
-              )
+                  )
                 }
                 
               <motion.button variants={textVariant} style={{margin: "auto"}}>
