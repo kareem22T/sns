@@ -426,7 +426,7 @@ const Home = () => {
                   style={{width: "100%", display: 'flex', justifyContent: "center", marginTop: 40}}
                 >
                   <img src={shape} alt="" />
-                  Trusted By
+                  Sufu Ecosystem
                 </motion.h2>
               <Slider />
           </motion.section>
@@ -707,7 +707,7 @@ const Home = () => {
               variants={textVariantx}
             >
               <img src={shape} alt="" />
-              Sufu Ecosystem
+              Trusted By
             </motion.h2>
           </div>
           <Slider />
