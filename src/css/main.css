@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +8,7 @@
 body {
     max-width: 100vw;
     overflow: hidden auto;
-    font-family: "Gowun Batang", serif;
+    font-family: "Poppins", sans-serif;
 }
 
 html {
@@ -103,25 +103,25 @@ body {
     background-color: var(--main-color);
 }
 
-header .top {
+.top {
     background: var(--secondary-color);
     padding: 8px 0 10px;
 }
 
-header .top .container {
+.top .container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-header .top .container .info,
-header .top .container .social {
+.top .container .info,
+.top .container .social {
     display: flex;
     align-items: center;
     gap: 24px;
 }
 
-header .top .container .info a {
+.top .container .info a {
     color: #f6ebd3;
     text-decoration: none;
     font-size: 14px;
@@ -131,14 +131,14 @@ header .top .container .info a {
     letter-spacing: 1px;
 }
 
-header .top .container .info a svg {
+.top .container .info a svg {
     width: 16px;
     height: 16px;
     stroke: #f6ebd3;
 }
 
 
-header .top .container .social a svg {
+.top .container .social a svg {
     width: 24px;
     height: 18px;
     fill: #b46c30;
@@ -147,7 +147,7 @@ header .top .container .social a svg {
 
 
 @media (max-width: 767.98px) {
-    header .top .container .info a {
+    .top .container .info a {
         font-size: 11px;
     }
 }
@@ -245,11 +245,11 @@ header a.active {
         transform: translateY(-44px);
     }
 
-    header .top a {
+    .top a {
         font-size: 13px !important;
     }
 
-    header .top .container {
+    .top .container {
         justify-content: end;
     }
 
@@ -267,7 +267,7 @@ header a.active {
         position: fixed;
         top: 16px;
         right: 16px;
-        color: white;
+        color: #f6ebd3;
         background-color: transparent;
         border: none;
         z-index: 99;
@@ -275,7 +275,7 @@ header a.active {
 }
 
 @media (max-width: 767.98px) {
-    header .top {
+    .top {
         display: none !important;
     }
 
@@ -572,10 +572,13 @@ header a.active {
 }
 .who-are-we .container .content-fluid h2 {
     font-size: 16px;
+        font-size: 30px !important;
+        display: flex;
+        align-items: center;
     color: var(--secondary-color);
     font-weight: 600;
     display: flex;
-    align-items: end;
+    align-items: center !important;
     gap: 8px;
     margin-bottom: 24px
 }
@@ -634,7 +637,7 @@ header a.active {
         align-items: center;
     }
     .who-are-we .container .content-fluid h2 {
-        font-size: 15px;
+        font-size: 28px !important;
     }
     .who-are-we .container .content-fluid h1 {
         font-size: 29px;
@@ -673,7 +676,7 @@ header a.active {
         align-items: center;
     }
     .who-are-we .container .content-fluid h2 {
-        font-size: 14px;
+        font-size: 24px !important;
         margin-bottom: 12px;
     }
     .who-are-we .container .content-fluid h2 img {
@@ -802,8 +805,8 @@ header a.active {
     width: 100%;
     margin: auto;
     display: block;
-    margin-bottom: 40px;
-    max-width: 700px;
+    margin-bottom: 20px;
+    max-width: 600px;
 }
 
 .our-parteners  img:not(.parteners) {
@@ -849,7 +852,7 @@ header a.active {
 .hero {
     z-index: 10;
     position: relative;
-    margin-bottom: 500vh;
+    margin-bottom: 550vh;
 }
 
 header {
@@ -1090,12 +1093,12 @@ footer .container {
 }
 
 .trusted-by-slider img {
-    background-color: white;
+    /* background-color: white; */
 }
 
 .trusted-by-slider .swiper-slide {
     height: 80px !important;
-    background-color:#f6ebd3 ;
+    background-color: #545a4d ;
     width: 150px !important;
     border-radius: 12px;
     overflow: hidden;
@@ -1118,7 +1121,7 @@ footer .container {
 
 .typography {
     font-size: 31px !important;
-    color: #fffffe !important;
+    color: #f6ebd3 !important;
     font-weight: 400 !important;
     text-align: center;
     margin-bottom: 32px !important;

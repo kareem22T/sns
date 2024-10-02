@@ -6,6 +6,7 @@ import card4 from "./../../images/card-4.png"
 
 import whoAreWe from './../../images/slide-1.jpg'
 import whoAreWe2 from './../../images/slide-2.jpg'
+import sufo from './../../images/sufo.png'
 import whoAreWe3 from './../../images/slide-3.jpg'
 import shape from './../../images/whoAreWeShpaeText@1.25x.png'
 
@@ -16,7 +17,56 @@ import video from './../../images/video.png'
 import { AnimatePresence, delay, motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Slider from "./slider";
+interface TypingTextProps {
 
+  text: string;
+
+  delay?: number;
+
+  speed?: number;
+
+}
+
+
+const TypingText = ({ text, delay = 0, speed = 20 }: TypingTextProps) => {
+
+  const words = text.split('');
+  const [wordIndex, setWordIndex] = useState(0);
+
+
+  useEffect(() => {
+
+    const intervalId = setInterval(() => {
+
+      setWordIndex((prevIndex) => prevIndex + 1);
+
+    }, speed);
+
+
+    return () => clearInterval(intervalId);
+
+  }, [speed]);
+
+
+  return (
+
+    <motion.span
+
+      initial={{ opacity: 0 }}
+
+      animate={{ opacity: 1 }}
+
+      transition={{ delay, duration: 0.5 }}
+
+    >
+
+      {words.slice(0, wordIndex).join('')}
+
+    </motion.span>
+
+  );
+
+};
 const Home = () => {
   const controls = useAnimation();
 
@@ -52,7 +102,7 @@ const Home = () => {
 
   const fadeInTexts1 = {
     hidden: { opacity: 0, y: 100 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: .2 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: .8 } }
   };
 
   const text1 = useRef(null);
@@ -69,7 +119,7 @@ const Home = () => {
 
   const fadeInCards1 = {
     hidden: { opacity: 0, x: 0 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: .6 } }
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay: .6 } }
   };
   const fadeInCards2 = {
     hidden: { opacity: 0, x: 0 },
@@ -150,6 +200,31 @@ const Home = () => {
   const [isQuestion2, setIsQuestion2] = useState(false)
   const [isQuestion3, setIsQuestion3] = useState(false)
   const [isQuestion4, setIsQuestion4] = useState(false)
+
+  const typingVariant = {
+
+    hidden: {
+
+      width: 0,
+
+    },
+
+    visible: {
+
+      width: "100%",
+
+      transition: {
+
+        duration: 1,
+
+        ease: "easeInOut",
+
+      },
+
+    },
+
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -164,16 +239,17 @@ const Home = () => {
       {
         root: null, // Use the viewport
         threshold: 0, // Trigger when the "hero" section is in/out of view
+        rootMargin: '0px 0px -300px 0px', // Trigger 300px before the section is completely out of view
       }
     );
 
-    if (heroRef.current) {
-      observer.observe(heroRef.current); // Observe the "hero" section
+    if (text1.current) {
+      observer.observe(text1.current); // Observe the "hero" section
     }
 
     return () => {
-      if (heroRef.current) {
-        observer.unobserve(heroRef.current); // Clean up observer
+      if (text1.current) {
+        observer.unobserve(text1.current); // Clean up observer
       }
     };
   }, []);
@@ -181,39 +257,45 @@ const Home = () => {
     const handleScroll = () => {
       const whoAreWeSection = sectionRef.current;
       const heroSection = heroRef.current;
-
+  
       if (!whoAreWeSection || !heroSection) return;
-
+  
       // Calculate hero and "who-are-we" section boundaries
       const heroBottom = (heroSection as HTMLElement).offsetTop + (heroSection as HTMLElement).offsetHeight;
       const scrollPosition = window.scrollY;
       const sectionHeight = (whoAreWeSection as HTMLElement).offsetHeight;
-
+  
       const distanceScrolled = scrollPosition - heroBottom;
-      console.log(distanceScrolled);
-      // Flip images at different distances (25%, 50%, 75% of "who-are-we" section)
-      if (distanceScrolled < (window.innerHeight * 1)) {
-        setFlipCount(0); // Before 25%
-      } else if (distanceScrolled >= (window.innerHeight * 1) && distanceScrolled < (window.innerHeight * 2)) {
-        setFlipCount(1); // First flip at 25%
-      } else if (distanceScrolled >= (window.innerHeight * 2) && distanceScrolled < (window.innerHeight * 3)) {
-        setFlipCount(2); // Second flip at 50%
-      } else if (distanceScrolled >= (window.innerHeight * 3)) {
-        setFlipCount(3); // Third flip at 75%
+      console.log("distanceScrolled", distanceScrolled);
+  
+      // Flip images at different distances (20%, 40%, 60%, 80% of "who-are-we" section)
+      if (distanceScrolled < window.innerHeight * 1) {
+        setFlipCount(0); // Before 20%
+      } else if (distanceScrolled >= window.innerHeight * 1 && distanceScrolled < window.innerHeight * 2) {
+        setFlipCount(1); // First flip at 20%
+      } else if (distanceScrolled >= window.innerHeight * 2 && distanceScrolled < window.innerHeight * 3) {
+        setFlipCount(2); // Second flip at 40%
+      } else if (distanceScrolled >= window.innerHeight * 3 && distanceScrolled < window.innerHeight * 4) {
+        setFlipCount(3); // Third flip at 60%
+      } else if (distanceScrolled >= window.innerHeight * 4 && distanceScrolled < window.innerHeight * 5) {
+        setFlipCount(4); // Fourth flip at 80%
+      } else if (distanceScrolled >= window.innerHeight * 5) {
+        setFlipCount(5); // Fifth flip at 100%
       }
-      };
-
+    };
+  
     // Attach scroll event listener
     window.addEventListener("scroll", handleScroll);
-
+  
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const images = [
+    const images = [
     whoAreWe, // Initial image
     whoAreWe2, // First flipped image
     whoAreWe3, // Second flipped image
+    whoAreWe2, // First flipped image
     whoAreWe
   ];
   const content = [
@@ -244,7 +326,7 @@ const Home = () => {
     },
     exit: { opacity: 0, x: "100%", transition: { duration: 0.6 } },
   };
-    const faqRef = useRef(null);
+  const faqRef = useRef(null);
   const isFaqVisible = useIntersection(faqRef); // Check if the section is in view
 
   // Animation variants
@@ -268,14 +350,14 @@ const Home = () => {
               initial="hidden"
               animate={isText1Visible ? "visible" : "hidden"}
               variants={fadeInTexts}
-            >SUSTAINABILITY NETWORK SOLUTIONS</motion.h1>
+            >  <TypingText text="SUSTAINABILITY NETWORK SOLUTIONS" delay={0.5} speed={70} /></motion.h1>
             <motion.h2
               ref={text2}
               initial="hidden"
               animate={isText2Visible ? "visible" : "hidden"}
               variants={fadeInTexts1}
-            >Rooted in Heritage, Branching into the Future</motion.h2>
-              <motion.img
+            ><TypingText text="Rooted in Heritage, Branching into the Future" delay={1} speed={70} /></motion.h2>
+            <motion.img
               src={video}
               alt="Video"
               initial="hidden"
@@ -292,21 +374,21 @@ const Home = () => {
             {/* Animated Image */}
             <AnimatePresence mode="wait">
 
-            <motion.img
-              key={flipCount} // Trigger re-render on image change
-              src={images[flipCount]} // Image changes with flipCount
-              alt={content[flipCount]?.title} // Alt text based on current content
-              initial="hidden"
-              animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation
-              exit="exit"
-              variants={flipVariants}
+              <motion.img
+                key={flipCount} // Trigger re-render on image change
+                src={images[flipCount]} // Image changes with flipCount
+                alt={content[flipCount]?.title} // Alt text based on current content
+                initial="hidden"
+                animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation
+                exit="exit"
+                variants={flipVariants}
               />
             </AnimatePresence>
 
             {/* Animated Text */}
             <motion.div
               className="text"
-              style={{maxWidth: "100%"}}
+              style={{ maxWidth: "100%", width: "100%" }}
               initial="hidden"
               animate={isWhoAreWeVisible ? "visible" : "hidden"} // Animation triggered by visibility
               variants={textVariant}
@@ -333,238 +415,280 @@ const Home = () => {
                 {content[flipCount].description} 
               </motion.p> */}
 
-{
-  (flipCount == 0) && (
-    <>
-            <motion.h2
-              ref={texxt}
-              initial="hidden"
-              animate={(flipCount == 0) ? "visible" : "hidden"}
-              variants={textVariantx}
-              style={{width: "100%", display: 'flex', justifyContent: "center", marginTop: 40}}
-            >
-              <img src={shape} alt="" />
-              Our Services
-            </motion.h2>
+              {
+                (flipCount == 0) && (
+                  <>
+                    <motion.h2
+                      ref={texxt}
+                      initial="hidden"
+                      animate={(flipCount == 0) ? "visible" : "hidden"}
+                      variants={textVariantx}
+                      style={{ width: "100%", display: 'flex', justifyContent: "center", marginTop: 40 }}
+                    >
+                      <img src={shape} alt="" />
+                      Our Services
+                    </motion.h2>
 
-        <motion.div className="cards-wrapper"
-          animate={(flipCount == 0) ? "visible" : "hidden"}
-          variants={textVariant}
-        >
-            <motion.a
-              href=""
-              className="card"
-              ref={Refcard1}
-              initial="hidden"
-              animate={(flipCount == 0) ? "visible" : "hidden"}
-              variants={fadeInCards}
-            >
-              <img src={card1} alt="" />
-              <div className="text">
-                <p>Sustainability Consulting</p>
-                <i className="fa-solid fa-chevron-right"></i>
-              </div>
-            </motion.a>
+                    <motion.div className="cards-wrapper"
+                      animate={(flipCount == 0) ? "visible" : "hidden"}
+                      variants={textVariant}
+                    >
+                      <motion.a
+                        href=""
+                        className="card"
+                        ref={Refcard1}
+                        initial="hidden"
+                        animate={(flipCount == 0 && isWhoAreWeVisible) ? "visible" : "hidden"}
+                        variants={fadeInCards}
+                      >
+                        <img src={card1} alt="" />
+                        <div className="text">
+                          <p>Sustainability Consulting</p>
+                          <i className="fa-solid fa-chevron-right"></i>
+                        </div>
+                      </motion.a>
 
-            <motion.a
-              href=""
-              className="card"
-              ref={Refcard2}
-              initial="hidden"
-              animate={(flipCount == 0) ? "visible" : "hidden"}
-              variants={fadeInCards1}
-            >
-              <img src={card2} alt="" />
-              <div className="text">
-                <p>Energy Regulation Consulting</p>
-                <i className="fa-solid fa-chevron-right"></i>
-              </div>
-            </motion.a>
+                      <motion.a
+                        href=""
+                        className="card"
+                        ref={Refcard2}
+                        initial="hidden"
+                        animate={(flipCount == 0 && isWhoAreWeVisible) ? "visible" : "hidden"}
+                        variants={fadeInCards1}
+                      >
+                        <img src={card2} alt="" />
+                        <div className="text">
+                          <p>Energy Regulation Consulting</p>
+                          <i className="fa-solid fa-chevron-right"></i>
+                        </div>
+                      </motion.a>
 
-            <motion.a
-              href=""
-              className="card"
-              ref={Refcard3}
-              initial="hidden"
-              animate={(flipCount == 0) ? "visible" : "hidden"}
-              variants={fadeInCards2}
-            >
-              <img src={card3} alt="" />
-              <div className="text">
-                <p>Waste Regulation Consulting</p>
-                <i className="fa-solid fa-chevron-right"></i>
-              </div>
-            </motion.a>
+                      <motion.a
+                        href=""
+                        className="card"
+                        ref={Refcard3}
+                        initial="hidden"
+                        animate={(flipCount == 0 && isWhoAreWeVisible) ? "visible" : "hidden"}
+                        variants={fadeInCards2}
+                      >
+                        <img src={card3} alt="" />
+                        <div className="text">
+                          <p>Waste Regulation Consulting</p>
+                          <i className="fa-solid fa-chevron-right"></i>
+                        </div>
+                      </motion.a>
 
-            <motion.a
-              href=""
-              className="card"
-              ref={Refcard4}
-              initial="hidden"
-              animate={(flipCount == 0) ? "visible" : "hidden"}
-              variants={fadeInCards3}
-            >
-              <img src={card4} alt="" />
-              <div className="text">
-                <p>Strategic Business Advisory</p>
-                <i className="fa-solid fa-chevron-right"></i>
-              </div>
-            </motion.a>
-          </motion.div>
+                      <motion.a
+                        href=""
+                        className="card"
+                        ref={Refcard4}
+                        initial="hidden"
+                        animate={(flipCount == 0 && isWhoAreWeVisible) ? "visible" : "hidden"}
+                        variants={fadeInCards3}
+                      >
+                        <img src={card4} alt="" />
+                        <div className="text">
+                          <p>Strategic Business Advisory</p>
+                          <i className="fa-solid fa-chevron-right"></i>
+                        </div>
+                      </motion.a>
+                    </motion.div>
 
-          <motion.section
-              animate={(flipCount == 0) ? "visible" : "hidden"}
-              variants={textVariant}
-              style={{display: 'block'}}
-          >
+                    <motion.section
+                      animate={(flipCount == 0) ? "visible" : "hidden"}
+                      variants={textVariant}
+                      style={{ display: 'block' }}
+                    >
 
-                <motion.h2
-                  ref={texxt}
-                  initial="hidden"
-                  animate={(flipCount == 0) ? "visible" : "hidden"}
-                  variants={textVariantx}
-                  style={{width: "100%", display: 'flex', justifyContent: "center", marginTop: 40}}
-                >
-                  <img src={shape} alt="" />
-                  Sufu Ecosystem
-                </motion.h2>
-              <Slider />
-          </motion.section>
-    </>
-  )
-}
-{
-  (flipCount == 1) && (
+                      <motion.h2
+                        ref={texxt}
+                        initial="hidden"
+                        animate={(flipCount == 0) ? "visible" : "hidden"}
+                        variants={textVariantx}
+                        style={{ width: "100%", display: 'flex', justifyContent: "center", marginTop: 40 }}
+                      >
+                        <img src={shape} alt="" />
+                        Sufu Ecosystem
+                      </motion.h2>
+                      <Slider />
+                    </motion.section>
+                  </>
+                )
+              }
+              {
+                (flipCount == 1) && (
 
-    <motion.h2
-    initial="hidden"
-                animate={(flipCount == 1) ? "visible" : "hidden"}
+                  <motion.h2
+                    initial="hidden"
+                    animate={(flipCount == 1) ? "visible" : "hidden"}
                     variants={textVariantx}
                     className="typography"
-                >
-                  For centuries, humans lived in harmony with the natural world, guided by practices that prioritized balance and resilience. At SNS, we believe sustainability isn’t a trend—it’s a rediscovery of our roots. We are here to bridge the wisdom of the past with the innovation of today, offering solutions that empower businesses and communities to thrive sustainably. Let us help you create a future where these values are seamlessly integrated into every facet of life and business, ensuring growth, resilience, and a lasting impact on the world around us.
-                </motion.h2>
-                  )
-                }
-{
-  (flipCount == 2) && (
+                    style={{ width: "100%" }}
+                  >
+                    <TypingText text="For centuries, humans lived in harmony with the natural world, guided by practices that prioritized balance and resilience. At SNS, we believe sustainability isn’t a trend—it’s a rediscovery of our roots. We are here to bridge the wisdom of the past with the innovation of today, offering solutions that empower businesses and communities to thrive sustainably. Let us help you create a future where these values are seamlessly integrated into every facet of life and business, ensuring growth, resilience, and a lasting impact on the world around us." delay={0.5} speed={20} />
 
-    <section className="our-parteners" ref={partnersRef}>
-    {/* Animated background image */}
-        {/* Animated Heading */}
-        <motion.h1
-          initial="hidden"
-          animate={(flipCount == 2) ? "visible" : "hidden"}
-          variants={textVariantx}
-        >
-          <span>OUR </span> GLOBAL PARTNERS
-        </motion.h1>
+                  </motion.h2>
+                )
+              }
+              {
+                (flipCount == 2) && (
 
-        {/* Animated Paragraph */}
-        <motion.p
-          initial="hidden"
-          animate={(flipCount == 2) ? "visible" : "hidden"}
-          variants={textVariantx}
-        >
-          At Sustainability Network Solutions, we carefully choose our partners based on their expertise, reputation,
-          and proven success in their sustainability sectors. This ensures we offer our clients the most effective and
-          innovative solutions tailored to their needs.
-        </motion.p>
+                  <section className="our-parteners" ref={partnersRef}>
+                    {/* Animated background image */}
+                    {/* Animated Heading */}
+                    <motion.h1
+                      initial="hidden"
+                      animate={(flipCount == 2) ? "visible" : "hidden"}
+                      variants={textVariantx}
+                    >
+                      OUR MAIN PARTENER
+                    </motion.h1>
+
+                    {/* Animated Paragraph */}
+                    <motion.img
+                      src={sufo}
+                      alt="Partners"
+                      className="parteners"
+                      initial="hidden"
+                      animate={(flipCount == 2) ? "visible" : "hidden"}
+                      style={{maxWidth: 150}}
+                      variants={fadeInCards}
+                    />
+                    <motion.p
+                      initial="hidden"
+                      animate={(flipCount == 2) ? "visible" : "hidden"}
+                      variants={textVariantx}
+                    >
+Sufu the climate consultancy based in Copenhagen the global hub for sustainability, is partnering with SNS to bring Nordic expertise to the Middle East and MENA region. Specializing in carbon accounting and sustainability solutions, SuFu combines cutting-edge technology with deep industry knowledge to help businesses meet their climate goals. Through this partnership, SuFu and SNS aim to provide MENA enterprises with simple, effective tools and guidance to reduce emissions and align with global sustainability standards.                    </motion.p>
 
 
-{/* Animated Partner and Video Images */}
-<motion.img
-  src={parteners}
-  alt="Partners"
-  className="parteners"
-  initial="hidden"
-  animate={(flipCount == 2) ? "visible" : "hidden"}
-  variants={imageVariantx}
-/>
+                    {/* Animated Partner and Video Images */}
 
-<motion.img
-              src={video}
-              alt="Video"
-              initial="hidden"
-              className="video"
-              style={{maxWidth: 600,display: 'block', margin:'auto', marginBottom: 32}}
-              animate={(flipCount == 2) ? "visible" : "hidden"}
-              variants={videoVariant}
-            />
 
-  </section>
+                  </section>
 
-              )
-                }
+                )
+              }
 
-                {
-                  (flipCount == 3) && (
-                    <div className="why-assist" style={{marginBottom: 40}}>
-  <motion.h2
-        initial="hidden"
-        animate={(flipCount == 3) ? "visible" : "hidden"}
-        variants={textVariant}
-  >We assist ourselves and the planet by</motion.h2>
-  <div className="why-assist-cards">
-    <motion.div
-      className="why-card"
-      initial="hidden"
-      animate={(flipCount == 3) ? "visible" : "hidden"}
-      variants={fadeInCards}
-    >
-      <h1>1.	DISCOVER</h1>
-      <p>
-        We begin by identifying your unique sustainability challenges and opportunities through in-depth research and analysis.
-      </p>
-    </motion.div>
-    <motion.div
-      className="why-card"
-      initial="hidden"
-      animate={(flipCount == 3) ? "visible" : "hidden"}
-      variants={fadeInCards}
-    >
-      <h1>2.	DEFINE</h1>
-      <p>
-        Together, we clarify clear sustainability goals and strategies that align with your business objectives and future growth.
-      </p>
-    </motion.div>
-    <motion.div
-      className="why-card"
-      initial="hidden"
-      animate={(flipCount == 3) ? "visible" : "hidden"}
-      variants={fadeInCards}
-    >
-      <h1>3.	DEVELOP</h1>
-      <p>
-        We create tailored solutions that drive efficiency, profitability, and sustainability, preparing your business for long-term success.
-      </p>
-    </motion.div>
-    <motion.div
-      className="why-card"
-      initial="hidden"
-      animate={(flipCount == 3) ? "visible" : "hidden"}
-      variants={fadeInCards}
-    >
-      <h1>4.	 DELIVER</h1>
-      <p>
-        Finally, we implement the strategy, ensuring smooth execution and measurable impact while supporting you every step of the way.
-      </p>
-    </motion.div>
-  </div>
-</div>
+              {
+                (flipCount == 3) && (
 
-                  )
-                }
-                
-              <motion.button variants={textVariant} style={{margin: "auto"}}>
-                Contact Us
-                <i className="fa-solid fa-chevron-right"></i>
-              </motion.button>
+                  <section className="our-parteners" ref={partnersRef}>
+                    {/* Animated background image */}
+                    {/* Animated Heading */}
+                    <motion.h1
+                      initial="hidden"
+                      animate={(flipCount == 3) ? "visible" : "hidden"}
+                      variants={textVariantx}
+                    >
+                      OUR STRATEGIC NETWORK
+                    </motion.h1>
+
+                    {/* Animated Paragraph */}
+                    <motion.p
+                      initial="hidden"
+                      animate={(flipCount == 3) ? "visible" : "hidden"}
+                      variants={textVariantx}
+                    >
+                      Our strategic network empowers us to deliver comprehensive, 360° sustainability solutions. Whether it's carbon accounting, regulatory compliance, emissions reduction, or supply chain optimization, our global alliances enable us to address every aspect of sustainability. From strategy to execution, we provide tailored guidance and cutting-edge tools, ensuring businesses can meet their sustainability goals from every angle. No matter the challenge, we support your journey toward a greener, more sustainable future.
+                    </motion.p>
+
+
+                    {/* Animated Partner and Video Images */}
+                    <motion.img
+                      src={parteners}
+                      alt="Partners"
+                      className="parteners"
+                      initial="hidden"
+                      animate={(flipCount == 3) ? "visible" : "hidden"}
+                      variants={imageVariantx}
+                    />
+
+                    <motion.img
+                      src={video}
+                      alt="Video"
+                      initial="hidden"
+                      className="video"
+                      style={{ maxWidth: 480, display: 'block', margin: 'auto', marginBottom: 32 }}
+                      animate={(flipCount == 3) ? "visible" : "hidden"}
+                      variants={videoVariant}
+                    />
+
+                  </section>
+
+                )
+              }
+
+              {
+                (flipCount == 4) && (
+                  <div className="why-assist" style={{ marginBottom: 40 }}>
+                    <motion.h2
+                      initial="hidden"
+                      animate={(flipCount == 4) ? "visible" : "hidden"}
+                      variants={textVariant}
+                    >We assist ourselves and the planet by</motion.h2>
+                    <div className="why-assist-cards">
+                      <motion.div
+                        className="why-card"
+                        initial="hidden"
+                        animate={(flipCount == 4) ? "visible" : "hidden"}
+                        variants={fadeInCards}
+                      >
+                        <h1>1.	DISCOVER</h1>
+                        <p>
+                          We begin by identifying your unique sustainability challenges and opportunities through in-depth research and analysis.
+                        </p>
+                      </motion.div>
+                      <motion.div
+                        className="why-card"
+                        initial="hidden"
+                        animate={(flipCount == 4) ? "visible" : "hidden"}
+                        variants={fadeInCards1}
+                      >
+                        <h1>2.	DEFINE</h1>
+                        <p>
+                          Together, we clarify clear sustainability goals and strategies that align with your business objectives and future growth.
+                        </p>
+                      </motion.div>
+                      <motion.div
+                        className="why-card"
+                        initial="hidden"
+                        animate={(flipCount == 4) ? "visible" : "hidden"}
+                        variants={fadeInCards2}
+                      >
+                        <h1>3.	DEVELOP</h1>
+                        <p>
+                          We create tailored solutions that drive efficiency, profitability, and sustainability, preparing your business for long-term success.
+                        </p>
+                      </motion.div>
+                      <motion.div
+                        className="why-card"
+                        initial="hidden"
+                        animate={(flipCount == 4) ? "visible" : "hidden"}
+                        variants={fadeInCards3}
+                      >
+                        <h1>4.	 DELIVER</h1>
+                        <p>
+                          Finally, we implement the strategy, ensuring smooth execution and measurable impact while supporting you every step of the way.
+                        </p>
+                      </motion.div>
+                    </div>
+                  </div>
+
+                )
+              }
+              <div style={{ width: "100%" }}>
+
+                <motion.button variants={textVariant} style={{ margin: "auto" }}>
+                  Contact Us
+                  <i className="fa-solid fa-chevron-right"></i>
+                </motion.button>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
-      <section className="faq"ref={faqRef}>
+      <section className="faq" ref={faqRef}>
         <div className="container">
           <div className="content-fluid">
             <motion.div
@@ -622,7 +746,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="our-team"  style={{display: 'none'}}>
+      <section className="our-team" style={{ display: 'none' }}>
         <div className="container">
           <div className="content-fluid">
             <motion.h2
@@ -696,7 +820,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="our-team" style={{display: 'none'}} >
+      <section className="our-team" style={{ display: 'none' }} >
         <div className="container">
           <div className="content-fluid">
 
