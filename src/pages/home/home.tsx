@@ -15,7 +15,10 @@ import shape from './../../images/whoAreWeShpaeText@1.25x.png'
 import partenersBg from './../../images/our-parteners.png'
 import team from './../../images/our-team.png'
 import parteners from './../../images/parteners@1.25x.png'
-import video from './../../images/video.png'
+import video from './../../videos/video.mp4'
+import video2 from './../../images/video.png'
+import video3 from './../../videos/V1.mp4'
+import { CSSProperties } from 'react';
 import { AnimatePresence, delay, motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Slider from "./slider";
@@ -342,6 +345,16 @@ const Home = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleImageClick = () => {
+    setIsModalOpen(true);  // Open the modal when image is clicked
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);  // Close the modal when close button is clicked
+  };
+
   return (
     <DefaultLayout>
       <section className="hero" ref={heroRef}>
@@ -359,14 +372,16 @@ const Home = () => {
               animate={isText2Visible ? "visible" : "hidden"}
               variants={fadeInTexts1}
             ><TypingText text="Rooted in Heritage, Branching into the Future" delay={1} speed={70} /></motion.h2>
-            <motion.img
-              src={video}
-              alt="Video"
-              initial="hidden"
-              className="video"
-              animate={isText1Visible ? "visible" : "hidden"}
-              variants={videoVariant}
-            />
+          <motion.video
+            src={video}
+            initial="hidden"
+            className="video"
+            animate={isText1Visible ? "visible" : "hidden"}
+            variants={videoVariant}
+            controls
+            autoPlay
+            muted
+          />
           </div>
         </div>
       </section>
@@ -609,17 +624,37 @@ const Home = () => {
                       variants={imageVariantx}
                     />
 
-                    <motion.img
-                      src={video}
-                      alt="Video"
-                      initial="hidden"
-                      className="video"
-                      style={{ maxWidth: 480, display: 'block', margin: 'auto', marginBottom: 32 }}
-                      animate={(flipCount == 3) ? "visible" : "hidden"}
-                      variants={videoVariant}
-                    />
+<motion.img
+        src={video2}
+        alt="Video"
+        initial="hidden"
+        className="video"
+        style={{ maxWidth: 480, display: 'block', margin: 'auto', marginBottom: 32 }}
+        animate={(flipCount === 3) ? "visible" : "hidden"}
+        variants={videoVariant}
+        onClick={handleImageClick}  
+      />
 
-                  </section>
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay" style={overlayStyles}>
+          <div className="modal-content" style={modalStyles}>
+            {/* Close Button */}
+            <button onClick={closeModal} style={closeButtonStyles}>Close</button>
+
+            {/* Video in Popup */}
+            <motion.video
+              src={video3}
+              className="video"
+              controls
+              autoPlay
+              muted
+              style={{ width: '100%', maxHeight: '80vh' }}  // Adjust video size
+            />
+          </div>
+        </div>
+      )}
+                        </section>
 
                 )
               }
@@ -848,3 +883,39 @@ const Home = () => {
 };
 
 export default Home;
+
+// Example inline styles for modal and overlay
+const overlayStyles: CSSProperties = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000,
+};
+
+const modalStyles: CSSProperties = {
+  backgroundColor: '#f7e9ce',
+  padding: 20,
+  borderRadius: 10,
+  position: 'relative',
+  width: '90%',
+  maxWidth: '600px',
+  height: "100%"
+};
+
+const closeButtonStyles: CSSProperties = {
+  position: 'absolute',
+  top: 10,
+  right: 10,
+  backgroundColor: 'red',
+  color: 'white',
+  border: 'none',
+  padding: '5px 10px',
+  cursor: 'pointer',
+  borderRadius: '5px',
+};

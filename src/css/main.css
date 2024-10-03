@@ -1116,6 +1116,8 @@ footer .container {
     position: relative;
     opacity: 1;
     transform: translateY(10%);
+    overflow: hidden;
+    border-radius: 20px;
     /* background-color: ; */
 }
 
