@@ -8,6 +8,8 @@ import whoAreWe from './../../images/slide-1.jpg'
 import whoAreWe2 from './../../images/slide-2.jpg'
 import sufo from './../../images/sufo.png'
 import whoAreWe3 from './../../images/slide-3.jpg'
+import whoAreWe4 from './../../images/image2.jpg'
+import whoAreWe5 from './../../images/image3.jpg'
 import shape from './../../images/whoAreWeShpaeText@1.25x.png'
 
 import partenersBg from './../../images/our-parteners.png'
@@ -295,8 +297,8 @@ const Home = () => {
     whoAreWe, // Initial image
     whoAreWe2, // First flipped image
     whoAreWe3, // Second flipped image
-    whoAreWe2, // First flipped image
-    whoAreWe
+    whoAreWe4,
+    whoAreWe5, // First flipped image
   ];
   const content = [
     {
@@ -551,7 +553,7 @@ const Home = () => {
                       className="parteners"
                       initial="hidden"
                       animate={(flipCount == 2) ? "visible" : "hidden"}
-                      style={{maxWidth: 150}}
+                      style={{maxWidth: 190}}
                       variants={fadeInCards}
                     />
                     <motion.p
@@ -559,7 +561,8 @@ const Home = () => {
                       animate={(flipCount == 2) ? "visible" : "hidden"}
                       variants={textVariantx}
                     >
-Sufu the climate consultancy based in Copenhagen the global hub for sustainability, is partnering with SNS to bring Nordic expertise to the Middle East and MENA region. Specializing in carbon accounting and sustainability solutions, SuFu combines cutting-edge technology with deep industry knowledge to help businesses meet their climate goals. Through this partnership, SuFu and SNS aim to provide MENA enterprises with simple, effective tools and guidance to reduce emissions and align with global sustainability standards.                    </motion.p>
+                      <TypingText text="Sufu the climate consultancy based in Copenhagen the global hub for sustainability, is partnering with SNS to bring Nordic expertise to the Middle East and MENA region. Specializing in carbon accounting and sustainability solutions, SuFu combines cutting-edge technology with deep industry knowledge to help businesses meet their climate goals. Through this partnership, SuFu and SNS aim to provide MENA enterprises with simple, effective tools and guidance to reduce emissions and align with global sustainability standards." speed={35} />
+                    </motion.p>
 
 
                     {/* Animated Partner and Video Images */}
@@ -590,7 +593,9 @@ Sufu the climate consultancy based in Copenhagen the global hub for sustainabili
                       animate={(flipCount == 3) ? "visible" : "hidden"}
                       variants={textVariantx}
                     >
-                      Our strategic network empowers us to deliver comprehensive, 360° sustainability solutions. Whether it's carbon accounting, regulatory compliance, emissions reduction, or supply chain optimization, our global alliances enable us to address every aspect of sustainability. From strategy to execution, we provide tailored guidance and cutting-edge tools, ensuring businesses can meet their sustainability goals from every angle. No matter the challenge, we support your journey toward a greener, more sustainable future.
+                                            <TypingText text=" Our strategic network empowers us to deliver comprehensive, 360° sustainability solutions. Whether it's carbon accounting, regulatory compliance, emissions reduction, or supply chain optimization, our global alliances enable us to address every aspect of sustainability. From strategy to execution, we provide tailored guidance and cutting-edge tools, ensuring businesses can meet their sustainability goals from every angle. No matter the challenge, we support your journey toward a greener, more sustainable future." speed={35} />
+
+                     
                     </motion.p>
 
 
