@@ -364,8 +364,9 @@ const Home = () => {
               ref={text1}
               initial="hidden"
               animate={isText1Visible ? "visible" : "hidden"}
-              variants={fadeInTexts}
-            >  <TypingText text="SUSTAINABILITY NETWORK SOLUTIONS" delay={0.5} speed={70} /></motion.h1>
+              variants={fadeInTexts}>
+                SUSTAINABILITY NETWORK SOLUTIONS
+              </motion.h1>
             <motion.h2
               ref={text2}
               initial="hidden"
@@ -542,7 +543,7 @@ const Home = () => {
                     className="typography"
                     style={{ width: "100%" }}
                   >
-                    <TypingText text="For centuries, humans lived in harmony with the natural world, guided by practices that prioritized balance and resilience. At SNS, we believe sustainability isn’t a trend—it’s a rediscovery of our roots. We are here to bridge the wisdom of the past with the innovation of today, offering solutions that empower businesses and communities to thrive sustainably. Let us help you create a future where these values are seamlessly integrated into every facet of life and business, ensuring growth, resilience, and a lasting impact on the world around us." delay={0.5} speed={20} />
+                    <TypingText text="For centuries, humans lived in harmony with the natural world, guided by practices that prioritized balance and resilience. At SNS, we believe sustainability isn’t a trend—it’s a rediscovery of our roots. We are here to bridge the wisdom of the past with the innovation of today, offering solutions that empower businesses and communities to thrive sustainably. Let us help you create a future where these values are seamlessly integrated into every facet of life and business, ensuring growth, resilience, and a lasting impact on the world around us." delay={0.5} speed={35} />
 
                   </motion.h2>
                 )
@@ -742,14 +743,17 @@ const Home = () => {
                 Why SNS?
               </h2>
               <h1>
-                Frequently
+              Driving Value 
                 <br />
-                Asked Questions
+                for your company
               </h1>
               <p>
                 Sustainability Network Solutions! If you are here
                 you've decided to be part of the change and contribute to
-                our planet's future. Together, we can create a better life
+                our planet's future.
+                <br />
+                <br />
+                 Together, we can create a better life
                 for ourselves, our children, and all living species. We are
                 experts in driving sustainable innovation and positively impacting
                 the world.
@@ -762,26 +766,77 @@ const Home = () => {
               animate={isFaqVisible ? "visible" : "hidden"}
               variants={fadeInFAQ}
             >
-              {[1, 2, 3, 4].map((num) => (
-                <motion.div
-                  key={num}
-                  className={"question" + (eval(`isQuestion${num}`) ? " open" : "")}
-                  onClick={() => eval(`setIsQuestion${num}`)(!eval(`isQuestion${num}`))}
-                  initial="hidden"
-                  animate={isFaqVisible ? "visible" : "hidden"}
-                  variants={fadeInQuestions}
-                >
-                  <h3>
-                    {num}. Cost Savings and Efficiency Improvements
-                    <i className={"fa-solid" + (eval(`isQuestion${num}`) ? " fa-chevron-up" : " fa-chevron-down")}></i>
-                  </h3>
-                  <p className="answer">
-                    Resource Efficiency: We identify ways to reduce energy and water
-                    usage, minimize waste, and optimize processes, leading
-                    to significant cost savings.
-                  </p>
-                </motion.div>
-              ))}
+      {/* Question 1 */}
+      <motion.div
+        key={1}
+        className={"question" + (isQuestion1 ? " open" : "")}
+        onClick={() => setIsQuestion1(!isQuestion1)}
+        initial="hidden"
+        animate={isFaqVisible ? "visible" : "hidden"}
+        variants={fadeInQuestions}
+      >
+        <h3>
+          1. Cost Savings and Efficiency Improvements
+          <i className={"fa-solid" + (isQuestion1 ? " fa-chevron-up" : " fa-chevron-down")}></i>
+        </h3>
+        <p className="answer">
+          Resource Efficiency: We identify ways to reduce energy and water usage, minimize waste, and optimize processes, leading to significant cost savings.
+        </p>
+      </motion.div>
+
+      {/* Question 2 */}
+      <motion.div
+        key={2}
+        className={"question" + (isQuestion2 ? " open" : "")}
+        onClick={() => setIsQuestion2(!isQuestion2)}
+        initial="hidden"
+        animate={isFaqVisible ? "visible" : "hidden"}
+        variants={fadeInQuestions}
+      >
+        <h3>
+          2. Risk Management
+          <i className={"fa-solid" + (isQuestion2 ? " fa-chevron-up" : " fa-chevron-down")}></i>
+        </h3>
+        <p className="answer">
+          Future-Proofing: By integrating sustainable practices, companies can mitigate regulatory, environmental, and reputational risks, ensuring long-term resilience.
+        </p>
+      </motion.div>
+
+      {/* Question 3 */}
+      <motion.div
+        key={3}
+        className={"question" + (isQuestion3 ? " open" : "")}
+        onClick={() => setIsQuestion3(!isQuestion3)}
+        initial="hidden"
+        animate={isFaqVisible ? "visible" : "hidden"}
+        variants={fadeInQuestions}
+      >
+        <h3>
+          3. Brand Enhancement and Customer Loyalty
+          <i className={"fa-solid" + (isQuestion3 ? " fa-chevron-up" : " fa-chevron-down")}></i>
+        </h3>
+        <p className="answer">
+          Sustainable Branding: Adopting sustainable practices strengthens your brand’s reputation, attracts eco-conscious consumers, and builds customer loyalty.
+        </p>
+      </motion.div>
+
+      {/* Question 4 */}
+      <motion.div
+        key={4}
+        className={"question" + (isQuestion4 ? " open" : "")}
+        onClick={() => setIsQuestion4(!isQuestion4)}
+        initial="hidden"
+        animate={isFaqVisible ? "visible" : "hidden"}
+        variants={fadeInQuestions}
+      >
+        <h3>
+          4. Innovation and Market Differentiation
+          <i className={"fa-solid" + (isQuestion4 ? " fa-chevron-up" : " fa-chevron-down")}></i>
+        </h3>
+        <p className="answer">
+          Sustainable Solutions: We help companies develop innovative products and services that meet market demands for sustainability, setting them apart from competitors.
+        </p>
+      </motion.div>
             </motion.div>
           </div>
         </div>

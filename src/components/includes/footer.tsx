@@ -1,16 +1,6 @@
 const Footer = () => {
     return (
         <>
-            <footer>
-                <div className="container">
-                    <span>
-                        © Copyrights 2024 SNS All rights reserved.
-                    </span>
-                    <span>
-                        Terms & Condition | Privacy | Support
-                    </span>
-                </div>
-            </footer>
             <div className="top" style={{background: '#1a2322'}}>
                 <div className="container">
                     <div className="info">
@@ -44,6 +34,16 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+            <footer>
+                <div className="container">
+                    <span>
+                        © Copyrights 2024 SNS All rights reserved.
+                    </span>
+                    <span>
+                        Terms & Condition | Privacy | Support
+                    </span>
+                </div>
+            </footer>
         </>
 
     )
